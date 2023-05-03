@@ -284,10 +284,12 @@ class Elevator {
   }
 
   public startRide() {
-    //@ts-ignore
-    const newRide: ElevatorRide = this.elevatorRidesQueue.shift();
-    this.destinationFloor = newRide.destinationFloor;
-    this.stops = newRide.stops;
+    if (this.elevatorRidesQueue.length > 0) {
+      //@ts-ignore
+      const newRide: ElevatorRide = this.elevatorRidesQueue.shift();
+      this.destinationFloor = newRide.destinationFloor;
+      this.stops = newRide.stops;
+    }
   }
 
   public move() {
