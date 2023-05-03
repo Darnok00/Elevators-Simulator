@@ -72,7 +72,7 @@ class Elevator {
       } else {
         if (
           startFloorAdditionalStop >= actualFloor &&
-          destinationFloor <= this.destinationFloor
+          destinationFloorAdditionalStop <= destinationFloor
         ) {
           return true;
         }
