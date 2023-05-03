@@ -6,13 +6,15 @@ class Elevator {
   private stops: Array<number>;
   private elevatorRidesQueue: Array<ElevatorRide>;
   private canMove: boolean;
+  private id: number;
 
-  constructor() {
+  constructor(id: number) {
     this.actualFloor = 0;
     this.destinationFloor = 0;
     this.stops = [];
     this.elevatorRidesQueue = [];
     this.canMove = true;
+    this.id = id;
   }
 
   public getActualFloor() {
