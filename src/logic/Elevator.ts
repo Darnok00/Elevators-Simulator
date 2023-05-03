@@ -33,6 +33,10 @@ class Elevator {
     return this.elevatorRidesQueue;
   }
 
+  public getId() {
+    return this.id;
+  }
+
   public isGoing() {
     return this.actualFloor != this.destinationFloor;
   }
