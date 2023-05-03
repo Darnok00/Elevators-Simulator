@@ -23,6 +23,14 @@ class Elevator {
     return this.destinationFloor;
   }
 
+  public getStops() {
+    return this.stops;
+  }
+
+  public getElevatorRidesQueue() {
+    return this.elevatorRidesQueue;
+  }
+
   public isGoing() {
     return this.actualFloor != this.destinationFloor;
   }
