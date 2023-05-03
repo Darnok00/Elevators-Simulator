@@ -6,6 +6,7 @@ class Elevator {
   private destinationFloor: number;
   private stops: Array<number>;
   private elevatorRidesQueue: Array<ElevatorRide>;
+  private canMove: boolean;
 
   constructor(totalFloorsNumber: number) {
     this.totalFloors = totalFloorsNumber;
@@ -13,6 +14,7 @@ class Elevator {
     this.destinationFloor = 0;
     this.stops = [];
     this.elevatorRidesQueue = [];
+    this.canMove = true;
   }
 
   public getActualFloor() {
@@ -199,7 +201,11 @@ class Elevator {
         left = middle + 1;
       }
     }
-    stops.splice(left, 0, stop);
+
+    if (stops[left] != stop) {
+      stops.splice(left, 0, stop);
+    }
+
     return stops;
   }
 
@@ -269,14 +275,27 @@ class Elevator {
     }
   }
 
-	public startRide() {
-		//@ts-ignore
-		const newRide: ElevatorRide = this.elevatorRidesQueue.shift();
-		this.destinationFloor = newRide.destinationFloor;
-		this.stops = newRide.stops;
-	}
+  public startRide() {
+    //@ts-ignore
+    const newRide: ElevatorRide = this.elevatorRidesQueue.shift();
+    this.destinationFloor = newRide.destinationFloor;
+    this.stops = newRide.stops;
+  }
 
-	
+  public move() {
+    if (!this.canMove) {
+      this.canMove = this.canMove;
+    } else {
+      this.actualFloor =
+        this.getDirection(this.actualFloor, this.destinationFloor) === "UP"
+          ? this.actualFloor + 1
+          : this.actualFloor - 1;
+      if (this.stops[0] == this.actualFloor) {
+        this.stops.shift();
+        this.canMove = false;
+      }
+    }
+  }
 }
 
 export default Elevator;
