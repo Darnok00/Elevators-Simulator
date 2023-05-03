@@ -1,38 +1,196 @@
 import { ElevatorRide } from "../types/types";
 
 class Elevator {
-    private totalFloorsNumber: Number;
-    private actualFloorNumber: Number;
-    private destinationFloor: Number;
-    private stops: Array<Number>;
-    private elevatorRidesQueue: Array<ElevatorRide>;
+  private totalFloors: number;
+  private actualFloor: number;
+  private destinationFloor: number;
+  private stops: Array<number>;
+  private elevatorRidesQueue: Array<ElevatorRide>;
+  private canMove: boolean;
 
+  constructor(totalFloorsNumber: number) {
+    this.totalFloors = totalFloorsNumber;
+    this.actualFloor = 0;
+    this.destinationFloor = 0;
+    this.stops = [];
+    this.elevatorRidesQueue = [];
+    this.canMove = true;
+  }
 
-    constructor(totalFloorsNumber: Number) {
-        this.totalFloorsNumber = totalFloorsNumber;
-        this.actualFloorNumber = 0;
-        this.destinationFloor = 0;
-        this.stops = []
-        this.elevatorRidesQueue = []
-    };
+  public getActualFloor() {
+    return this.actualFloor;
+  }
 
-    public getActualFloorNumber ()  {
-        return this.actualFloorNumber
+  public getDestinationFloor() {
+    return this.destinationFloor;
+  }
+
+  public isGoing() {
+    return this.actualFloor != this.destinationFloor;
+  }
+
+  public hasPlannedRide() {
+    return this.elevatorRidesQueue.length > 0;
+  }
+
+  public getDirection(startFloor: number, destinationFloor: number) {
+    return destinationFloor > startFloor ? "UP" : "DOWN";
+  }
+
+  private getDiffrenceFloors(startFloor: number, destinationFloor: number) {
+    return Math.abs(startFloor - destinationFloor);
+  }
+
+  private canBeAdditionalStop(
+    actualFloor: number,
+    destinationFloor: number,
+    startFloorAdditionalStop: number,
+    destinationFloorAdditionalStop: number,
+    directionActualRide: string,
+    directionPlannedRide: string
+  ) {
+    if (directionActualRide == directionPlannedRide) {
+      if (directionActualRide === "DOWN") {
+        if (
+          startFloorAdditionalStop <= actualFloor &&
+          destinationFloorAdditionalStop >= destinationFloor
+        ) {
+          return true;
+        }
+      } else {
+        if (
+          startFloorAdditionalStop >= actualFloor &&
+          destinationFloor <= this.destinationFloor
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private numberStopsForScope(
+    startFloor: number,
+    destinationFloor: number,
+    stops: Array<number>,
+    direction: string
+  ) {
+    return stops.filter(function (stop) {
+      if (direction === "DOWN") {
+        if (startFloor > stop && destinationFloor < stop) {
+          return stop;
+        }
+      } else {
+        if (startFloor < stop && destinationFloor > stop) {
+          return stop;
+        }
+      }
+    }).length;
+  }
+
+  public getExpectedTimeArrival(
+    startFloor: number,
+    destinationFloor: number
+  ) {
+    let totalTime = 0;
+
+    if (!this.isGoing && !this.hasPlannedRide) {
+      return this.getDiffrenceFloors(this.actualFloor, destinationFloor) + 2;
     }
 
-    public getDestinationFloor () {
-        return this.destinationFloor
+    if (this.isGoing()) {
+      const directionActualRide = this.getDirection(
+        this.actualFloor,
+        this.destinationFloor
+      );
+      const directionPlannedRide = this.getDirection(
+        startFloor,
+        destinationFloor
+      );
+
+      if (
+        this.canBeAdditionalStop(
+          this.actualFloor,
+          this.destinationFloor,
+          startFloor,
+          destinationFloor,
+          directionActualRide,
+          directionPlannedRide
+        )
+      ) {
+        return (
+          this.getDiffrenceFloors(this.actualFloor, destinationFloor) +
+          this.numberStopsForScope(
+            this.actualFloor,
+            destinationFloor,
+            this.stops,
+            directionActualRide
+          ) +
+          2
+        );
+      }
+      totalTime +=
+        this.getDiffrenceFloors(this.actualFloor, this.destinationFloor) +
+        this.numberStopsForScope(
+          this.actualFloor,
+          this.destinationFloor,
+          this.stops,
+          directionActualRide
+        ) +
+        1;
     }
 
-    public isGoing () {
-        return this.actualFloorNumber != this.destinationFloor
+    if (this.hasPlannedRide()) {
+      this.elevatorRidesQueue.forEach((ride) => {
+        const directionActualRide = this.getDirection(
+          ride.startFloor,
+          ride.destinationFloor
+        );
+        const directionAdditionalRide = this.getDirection(
+          startFloor,
+          destinationFloor
+        );
+        if (
+          this.canBeAdditionalStop(
+            ride.startFloor,
+            ride.destinationFloor,
+            startFloor,
+            destinationFloor,
+            directionActualRide,
+            directionAdditionalRide
+          )
+        ) {
+          return (
+            totalTime +
+            this.getDiffrenceFloors(ride.startFloor, destinationFloor) +
+            this.numberStopsForScope(
+              ride.startFloor,
+              ride.destinationFloor,
+              ride.stops,
+              directionActualRide
+            ) +
+            2
+          );
+        }
+        totalTime +=
+          this.getDiffrenceFloors(ride.startFloor, ride.destinationFloor) +
+          this.numberStopsForScope(
+            ride.startFloor,
+            ride.destinationFloor,
+            ride.stops,
+            directionActualRide
+          ) +
+          1;
+      });
     }
+    totalTime +=
+      this.getDiffrenceFloors(
+        this.elevatorRidesQueue[-1].destinationFloor,
+        startFloor
+      ) + this.getDiffrenceFloors(startFloor, destinationFloor);
 
-    public hasPlannedRide () {
-        return this.elevatorRidesQueue.length > 0
-    }
-
-
+    return totalTime;
+  }
 }
 
 export default Elevator;

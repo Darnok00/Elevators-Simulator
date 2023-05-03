@@ -1,4 +1,5 @@
 export type ElevatorRide = {
-    destination: Number;
-    stops: Array<Number>;
+    startFloor: number;
+    destinationFloor: number;
+    stops: Array<number>;
 };
