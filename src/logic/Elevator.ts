@@ -1,15 +1,13 @@
 import { ElevatorRide } from "../types/types";
 
 class Elevator {
-  private totalFloors: number;
   private actualFloor: number;
   private destinationFloor: number;
   private stops: Array<number>;
   private elevatorRidesQueue: Array<ElevatorRide>;
   private canMove: boolean;
 
-  constructor(totalFloorsNumber: number) {
-    this.totalFloors = totalFloorsNumber;
+  constructor() {
     this.actualFloor = 0;
     this.destinationFloor = 0;
     this.stops = [];
