@@ -268,6 +268,15 @@ class Elevator {
       }
     }
   }
+
+	public startRide() {
+		//@ts-ignore
+		const newRide: ElevatorRide = this.elevatorRidesQueue.shift();
+		this.destinationFloor = newRide.destinationFloor;
+		this.stops = newRide.stops;
+	}
+
+	
 }
 
 export default Elevator;
