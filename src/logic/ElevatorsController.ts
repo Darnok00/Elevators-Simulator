@@ -41,6 +41,20 @@ class ElevatorsController {
       );
     });
   }
+
+  public getElevatorsStatus() {
+    return this.elevators.map((elevator) => {
+      return {
+        actualFloor: elevator.getActualFloor,
+        upcomingStop:
+          elevator.getStops().length > 0
+            ? elevator.getStops()[0]
+            : elevator.getDestinationFloor(),
+        nextStops: elevator.getNextStops(),
+      };
+    });
+  }
+	
 }
 
 export default ElevatorsController;
