@@ -6,7 +6,6 @@ class Elevator {
   private destinationFloor: number;
   private stops: Array<number>;
   private elevatorRidesQueue: Array<ElevatorRide>;
-  private canMove: boolean;
 
   constructor(totalFloorsNumber: number) {
     this.totalFloors = totalFloorsNumber;
@@ -14,7 +13,6 @@ class Elevator {
     this.destinationFloor = 0;
     this.stops = [];
     this.elevatorRidesQueue = [];
-    this.canMove = true;
   }
 
   public getActualFloor() {
@@ -88,10 +86,7 @@ class Elevator {
     }).length;
   }
 
-  public getExpectedTimeArrival(
-    startFloor: number,
-    destinationFloor: number
-  ) {
+  public getExpectedTimeArrival(startFloor: number, destinationFloor: number) {
     let totalTime = 0;
 
     if (!this.isGoing && !this.hasPlannedRide) {
@@ -190,6 +185,88 @@ class Elevator {
       ) + this.getDiffrenceFloors(startFloor, destinationFloor);
 
     return totalTime;
+  }
+
+  private insertNewStop(stops: Array<number>, stop: number) {
+    let left = 0;
+    let right = stops.length - 1;
+
+    while (left <= right) {
+      const middle = Math.floor((left + right) / 2);
+      if (stop < stops[middle]) {
+        right = middle - 1;
+      } else {
+        left = middle + 1;
+      }
+    }
+    stops.splice(left, 0, stop);
+    return stops;
+  }
+
+  public addRide(startFloor: number, destinationFloor: number) {
+    const directionActualRide = this.getDirection(
+      this.actualFloor,
+      this.destinationFloor
+    );
+    const directionPlannedRide = this.getDirection(
+      startFloor,
+      destinationFloor
+    );
+
+    if (
+      this.canBeAdditionalStop(
+        this.actualFloor,
+        this.destinationFloor,
+        startFloor,
+        destinationFloor,
+        directionActualRide,
+        directionPlannedRide
+      )
+    ) {
+      this.stops = this.insertNewStop(this.stops, startFloor);
+      this.stops = this.insertNewStop(this.stops, destinationFloor);
+    } else {
+      let addedToStops = false;
+      this.elevatorRidesQueue.forEach((ride) => {
+        if (!addedToStops) {
+          const directionActualRide = this.getDirection(
+            ride.startFloor,
+            ride.destinationFloor
+          );
+
+          if (
+            this.canBeAdditionalStop(
+              ride.startFloor,
+              ride.destinationFloor,
+              startFloor,
+              destinationFloor,
+              directionActualRide,
+              directionPlannedRide
+            )
+          ) {
+            ride.stops = this.insertNewStop(ride.stops, startFloor);
+            ride.stops = this.insertNewStop(ride.stops, destinationFloor);
+            addedToStops = true;
+          }
+        }
+      });
+      if (!addedToStops) {
+        const ElevatorRidePickup: ElevatorRide = {
+          startFloor: this.hasPlannedRide()
+            ? this.elevatorRidesQueue[-1].destinationFloor
+            : this.destinationFloor,
+          destinationFloor: startFloor,
+          stops: [],
+        };
+        const ElevatorRideDelivery: ElevatorRide = {
+          startFloor: startFloor,
+          destinationFloor: destinationFloor,
+          stops: [],
+        };
+        this.elevatorRidesQueue.push(ElevatorRidePickup);
+        this.elevatorRidesQueue.push(ElevatorRideDelivery);
+      }
+    }
   }
 }
 
