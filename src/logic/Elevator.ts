@@ -304,6 +304,28 @@ class Elevator {
       }
     }
   }
+
+  public getNextStops() {
+    let nextStops: Array<number> = [];
+
+    this.stops.forEach((stop) => {
+      nextStops.push(stop);
+    });
+
+    nextStops.push(this.destinationFloor);
+
+    this.elevatorRidesQueue.forEach((ride) => {
+      ride.stops.forEach((stop) => {
+        nextStops.push(stop);
+      });
+    });
+
+    if (nextStops.length > 0) {
+      nextStops.shift();
+    }
+
+    return nextStops;
+  };
 }
 
 export default Elevator;
