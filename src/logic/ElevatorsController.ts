@@ -17,7 +17,7 @@ class ElevatorsController {
     this.elevatorPickups.push(pickup);
   }
 
-  public assignPickupsToElevators() {
+  private assignPickupsToElevators() {
     this.elevatorPickups.forEach((pickup) => {
       const expectedTimesArrivalList: Array<ElevatorExpectedTime> =
         this.elevators.map((elevator) => {
@@ -53,6 +53,19 @@ class ElevatorsController {
         nextStops: elevator.getNextStops(),
       };
     });
+  }
+
+  public updateElevators() {
+    this.assignPickupsToElevators();
+    this.elevators.forEach((elevator) => {
+      if (elevator.isGoing()) {
+        elevator.move()
+      } else {
+        if (elevator.hasPlannedRide()) {
+          elevator.startRide();
+        }
+      }
+    })
   }
 	
 }
