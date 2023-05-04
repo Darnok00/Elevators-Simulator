@@ -89,10 +89,8 @@ class ElevatorsController {
     this.elevators.forEach((elevator) => {
       if (elevator.isGoing()) {
         elevator.move()
-        elevator.setPreviousFloor();
       } else {
         if (elevator.hasPlannedRide()) {
-          elevator.setPreviousFloor();
           elevator.startRide();
         }
       }

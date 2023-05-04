@@ -4,7 +4,6 @@ import { getDirection, getDiffrenceFloors, canBeAdditionalStop, numberStopsForSc
 
 class Elevator {
   private actualFloor: number;
-  private previousFloor: number;
   private destinationFloor: number;
   private stops: Array<number>;
   private elevatorRidesQueue: Array<ElevatorRide>;
@@ -14,7 +13,6 @@ class Elevator {
   constructor(id: number) {
     this.actualFloor = 0;
     this.destinationFloor = 0;
-    this.previousFloor = 0;
     this.stops = [];
     this.elevatorRidesQueue = [];
     this.canMove = true;
@@ -41,16 +39,8 @@ class Elevator {
     return this.id;
   }
 
-  public getPreviousFloor() {
-    this.getPreviousFloor;
-  }
-
   public isGoing() {
     return this.actualFloor != this.destinationFloor;
-  }
-
-  public setPreviousFloor(){
-    this.previousFloor = this.actualFloor;
   }
 
   public hasPlannedRide() {
