@@ -140,7 +140,7 @@ class Elevator {
     }
     totalTime +=
       getDiffrenceFloors(
-        this.elevatorRidesQueue[-1].destinationFloor,
+        this.elevatorRidesQueue[this.elevatorRidesQueue.length - 1].destinationFloor,
         startFloor
       ) + getDiffrenceFloors(startFloor, destinationFloor);
 
@@ -197,7 +197,7 @@ class Elevator {
       if (!addedToStops) {
         const ElevatorRidePickup: ElevatorRide = {
           startFloor: this.hasPlannedRide()
-            ? this.elevatorRidesQueue[-1].destinationFloor
+            ? this.elevatorRidesQueue[this.elevatorRidesQueue.length - 1].destinationFloor
             : this.destinationFloor,
           destinationFloor: startFloor,
           stops: [],
