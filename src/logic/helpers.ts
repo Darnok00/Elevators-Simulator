@@ -69,7 +69,7 @@ export function insertNewStop(stops: Array<number>, stop: number) {
     }
   }
 
-  if (stops[left] != stop) {
+  if (stops[left-1] != stop) {
     stops.splice(left, 0, stop);
   }
 
