@@ -1,16 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './styles/App.css'
+import "./styles/App.css";
+import InitializePopup from "./components/InitializePopup";
+import { SimulatorConstants } from "./types/types";
+import { useState } from "react";
+
+const defaultValues = { floorsNumber: 5, elevatorsNumber: 2, timestep: 1 };
 
 function App() {
+  const [SimulatorConstants, setSimulatorConstants] =
+    useState<SimulatorConstants>(defaultValues);
+
+  const [isStarted, setIsStarted] = useState<Boolean>(false);
+
+  const handleSubmit = (data: SimulatorConstants) => {
+    setSimulatorConstants(data);
+    setIsStarted(true);
+  };
 
   return (
     <>
-      <div> RESTART </div>
-        
+      <div>
+        <p>START</p>
+        {!isStarted && <InitializePopup simulatorConstants={handleSubmit} />}
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
