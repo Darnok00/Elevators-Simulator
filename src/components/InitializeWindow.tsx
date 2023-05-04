@@ -15,16 +15,16 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
   } = useForm<SimulatorConstants>();
 
   return (
     <div className="InitializeContainer">
       <form onSubmit={handleSubmit(simulatorConstants)}>
         <label>
-        <p>Number of floors (5 - 31):</p>
+          <p>Number of floors (5 - 31):</p>
           <input
-            className = "element"
+            className="element"
             type="number"
             {...register("floorsNumber", {
               required: true,
@@ -33,11 +33,11 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
             })}
           />
         </label>
-        <br/>
+        <br />
         <label>
           <p>Number of elevators( 1 - 16):</p>
           <input
-            className = "element"
+            className="element"
             type="number"
             {...register("elevatorsNumber", {
               required: true,
@@ -46,11 +46,11 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
             })}
           />
         </label>
-        <br/>
+        <br />
         <label>
-        <p>Timestep (1 - 10):</p>
+          <p>Timestep (1 - 10):</p>
           <input
-            className = "element"
+            className="element"
             type="number"
             {...register("timestep", {
               required: true,
@@ -59,8 +59,10 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
             })}
           />
         </label>
-        <br/>
-        <button className="element" type="submit">Start Simulation</button>
+        <br />
+        <button className="element" type="submit">
+          Start Simulation
+        </button>
       </form>
     </div>
   );
