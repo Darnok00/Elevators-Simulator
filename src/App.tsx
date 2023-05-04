@@ -2,46 +2,56 @@ import "./styles/App.css";
 import InitializePopup from "./components/InitializePopup";
 import PickupPanel from "./components/PickupPanel";
 import { SimulatorConstants, ElevatorPickup } from "./utils/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ElevatorsController from "./logic/ElevatorsController";
-
-const defaultValues = { floorsNumber: 5, elevatorsNumber: 2, timestep: 1 };
-let elevatorsController: ElevatorsController;
+import StatusPanel from "./components/StatusPanel";
 
 function App() {
-  const [SimulatorConstants, setSimulatorConstants] =
-    useState<SimulatorConstants>(defaultValues);
-
+  const [simulatorConstants, setSimulatorConstants] =
+    useState<SimulatorConstants>();
   const [isStarted, setIsStarted] = useState<Boolean>(false);
+  const [elevatorsController, setElevatorsController] =
+    useState<ElevatorsController>();
 
   const handleSubmitSimulatorConstants = (data: SimulatorConstants) => {
     setSimulatorConstants(data);
     setIsStarted(true);
-    elevatorsController = new ElevatorsController(
-      SimulatorConstants.elevatorsNumber,
-      SimulatorConstants.floorsNumber,
-      SimulatorConstants.timestep
+    setElevatorsController(
+      new ElevatorsController(
+        data.elevatorsNumber,
+        data.floorsNumber,
+        data.timestep
+      )
     );
   };
 
   const handleSubmitElevatorPickup = (data: ElevatorPickup) => {
-    elevatorsController.addPickup(data);
-    console.log(elevatorsController.getElevatorPickups());
+    //@ts-ignore
+    setElevatorsController(elevatorsController.addPickup(data));
   };
 
   return (
     <>
       <div>
-        <p>START</p>
         {!isStarted && (
           <InitializePopup
             simulatorConstants={handleSubmitSimulatorConstants}
           />
         )}
-        <PickupPanel
-          floorsNumberScope={[0, SimulatorConstants.floorsNumber - 1]}
-          elevatorPickup={handleSubmitElevatorPickup}
-        />
+        {isStarted && (
+          <PickupPanel
+            //@ts-ignore;
+            floorsNumberScope={[0, simulatorConstants.floorsNumber - 1]}
+            elevatorPickup={handleSubmitElevatorPickup}
+          />
+        )}
+
+        {isStarted && (
+          <StatusPanel
+            //@ts-ignore
+            controller={elevatorsController}
+          />
+        )}
       </div>
     </>
   );
