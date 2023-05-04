@@ -45,8 +45,8 @@ const InitializePopup: React.FC<Props> = ({ floorsNumberScope, elevatorPickup}) 
         <br />
         <button type="submit">Submit</button>
       </form>
-      {/* <label>NUMBER ELEVATOR: {numberElevator}</label>
-      <label>NUMBER Expected Time: {expectedTime}</label> */}
+      {/* * <label>NUMBER ELEVATOR: {numberElevator}</label>
+      <label>NUMBER Expected Time: {expectedTime}</label>  */}
     </>
   );
 };

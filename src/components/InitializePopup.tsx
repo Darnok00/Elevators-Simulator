@@ -7,7 +7,6 @@ type Props = {
   simulatorConstants: (data: SimulatorConstants) => void;
 };
 
-//@ts-ignore
 const InitializePopup: React.FC<Props> = (({simulatorConstants}) => {
   const {
     register,

@@ -2,7 +2,7 @@ import "./styles/App.css";
 import InitializePopup from "./components/InitializePopup";
 import PickupPanel from "./components/PickupPanel";
 import { SimulatorConstants, ElevatorPickup } from "./utils/types";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ElevatorsController from "./logic/ElevatorsController";
 import StatusPanel from "./components/StatusPanel";
 
@@ -14,7 +14,7 @@ function App() {
     useState<ElevatorsController>();
 
   const handleSubmitSimulatorConstants = (data: SimulatorConstants) => {
-    setSimulatorConstants(data);
+    setSimulatorConstants({...data});
     setIsStarted(true);
     setElevatorsController(
       new ElevatorsController(
@@ -28,6 +28,7 @@ function App() {
   const handleSubmitElevatorPickup = (data: ElevatorPickup) => {
     //@ts-ignore
     setElevatorsController(elevatorsController.addPickup(data));
+    console.log("bla");
   };
 
   return (

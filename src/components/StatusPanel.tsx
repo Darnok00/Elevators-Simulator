@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useEffect } from "react";
 import ElevatorsController from "../logic/ElevatorsController";
 
 type ElevatorTableProps = {
@@ -6,7 +7,27 @@ type ElevatorTableProps = {
 };
 
 const StatusPanel: React.FC<ElevatorTableProps> = ({ controller }) => {
-  const elevatorsStatus = controller.getElevatorsStatus();
+  const [elevatorsStatus, setElevatorsStatus] = useState<
+    Array<{
+      actualFloor: number;
+      upcomingStop: number;
+      nextStops: Array<number>;
+    }>
+  >(controller.getElevatorsStatus());
+  const [controllerElevators, setControllerElevators] =
+    useState<ElevatorsController>(controller);
+
+		useEffect(() => {
+			const intervalId = setInterval(() => {
+				setElevatorsStatus([...controllerElevators.getElevatorsStatus()]);
+				setControllerElevators(controllerElevators.updateElevators());
+			}, controllerElevators.getTimestep() * 1000);
+		
+			return () => {
+				clearInterval(intervalId);
+			};
+		}, []);
+		
 
   return (
     <table>
@@ -24,7 +45,7 @@ const StatusPanel: React.FC<ElevatorTableProps> = ({ controller }) => {
             <td>{index + 1}</td>
             <td>{status.actualFloor}</td>
             <td>{status.upcomingStop}</td>
-            <td>{status.nextStops.join(', ')}</td>
+            <td>{status.nextStops.join(", ")}</td>
           </tr>
         ))}
       </tbody>
