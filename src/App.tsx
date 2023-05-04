@@ -1,5 +1,5 @@
 import "./styles/App.css";
-import InitializeWindow from "./components/InitializeWindow";
+import InitializePopup from "./components/InitializeWindow";
 import PickupPanel from "./components/PickupPanel";
 import { SimulatorConstants, ElevatorPickup } from "./utils/types";
 import { useState } from "react";
@@ -34,7 +34,7 @@ function App() {
     <>
       <div>
         {!isStarted && (
-          <InitializeWindow
+          <InitializePopup
             simulatorConstants={handleSubmitSimulatorConstants}
           />
         )}
