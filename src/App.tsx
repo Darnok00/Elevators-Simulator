@@ -4,7 +4,7 @@ import PickupPanel from "./components/PickupPanel";
 import { SimulatorConstants, ElevatorPickup } from "./utils/types";
 import { useState } from "react";
 import ElevatorsController from "./logic/ElevatorsController";
-import StatusPanel from "./components/StatusPanel";
+import StatusPanel from "./components/SimulatorPanel";
 
 function App() {
   const [simulatorConstants, setSimulatorConstants] =
@@ -32,7 +32,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="AppContainer">
         {!isStarted && (
           <InitializePopup
             simulatorConstants={handleSubmitSimulatorConstants}
