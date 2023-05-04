@@ -13,3 +13,9 @@ export type ElevatorExpectedTime = {
   elevatorId: number;
   expectedTime: number;
 };
+
+export type SimulatorConstants = {
+  floorsNumber: number;
+  elevatorsNumber: number;
+  timestep: number;
+};
