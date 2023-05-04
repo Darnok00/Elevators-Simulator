@@ -32,6 +32,10 @@ class ElevatorsController {
     return this.timestep;
   }
 
+  public getElevatorPickups() {
+    return this.elevatorPickups;
+  }
+
   public addPickup(pickup: ElevatorPickup) {
     this.elevatorPickups.push(pickup);
   }
@@ -64,7 +68,7 @@ class ElevatorsController {
   public getElevatorsStatus() {
     return this.elevators.map((elevator) => {
       return {
-        actualFloor: elevator.getActualFloor,
+        actualFloor: elevator.getActualFloor(),
         upcomingStop:
           elevator.getStops().length > 0
             ? elevator.getStops()[0]
