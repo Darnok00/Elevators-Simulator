@@ -43,8 +43,8 @@ describe("Elevator tests", () => {
     elevator.addRide(3, 8);
     elevator.addRide(5, 7);
     elevator.startRide();
-    const destination = elevator.getDestinationFloor;
-    const stops = elevator.getStops;
+    const destination = elevator.getDestinationFloor();
+    const stops = elevator.getStops();
     const result = [destination, stops];
     expect(result).toEqual([3, []]);
   });
@@ -52,7 +52,7 @@ describe("Elevator tests", () => {
   test("Add Ride that should be added to actual stops", () => {
     const elevator = new Elevator(1);
     elevator.addRide(3, 8);
-    elevator.startRide;
+    elevator.startRide();
     elevator.addRide(1, 2);
     const result = elevator.getStops();
     expect(result).toEqual([1, 2]);
@@ -94,7 +94,7 @@ describe("Elevator tests", () => {
     expect(result).toEqual(1);
   });
 
-  test("List next stops (withput upcoming step)", () => {
+  test("List next stops (without upcoming step)", () => {
     const elevator = new Elevator(1);
     elevator.addRide(3, 5);
     elevator.addRide(1, 2);
