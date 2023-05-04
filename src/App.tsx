@@ -5,13 +5,18 @@ import { SimulatorConstants, ElevatorPickup } from "./utils/types";
 import { useState } from "react";
 import ElevatorsController from "./logic/ElevatorsController";
 import StatusPanel from "./components/SimulatorPanel";
+import {defaultElevatorNumber, defaultFloorsNumber, defaultTimestep } from "./utils/constants";
 
 function App() {
-  const [simulatorConstants, setSimulatorConstants] =
-    useState<SimulatorConstants>();
+  const defaultElevatorsController: ElevatorsController =  new ElevatorsController(
+    defaultFloorsNumber,
+    defaultElevatorNumber,
+    defaultTimestep
+  );
+  const [simulatorConstants, setSimulatorConstants] = useState<SimulatorConstants>();
   const [isStarted, setIsStarted] = useState<Boolean>(false);
   const [elevatorsController, setElevatorsController] =
-    useState<ElevatorsController>();
+    useState<ElevatorsController>(defaultElevatorsController);
 
   const handleSubmitSimulatorConstants = (data: SimulatorConstants) => {
     setSimulatorConstants({...data});
@@ -26,7 +31,6 @@ function App() {
   };
 
   const handleSubmitElevatorPickup = (data: ElevatorPickup) => {
-    //@ts-ignore
     setElevatorsController(elevatorsController.addPickup(data));
   };
 
@@ -40,7 +44,7 @@ function App() {
         )}
         {isStarted && (
           <PickupPanel
-            //@ts-ignore;
+          //@ts-ignore
             floorsNumberScope={[0, simulatorConstants.floorsNumber - 1]}
             elevatorPickup={handleSubmitElevatorPickup}
           />
@@ -48,7 +52,6 @@ function App() {
 
         {isStarted && (
           <StatusPanel
-            //@ts-ignore
             controller={elevatorsController}
           />
         )}
