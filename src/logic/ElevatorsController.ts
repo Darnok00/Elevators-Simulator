@@ -36,6 +36,10 @@ class ElevatorsController {
     return this.elevatorPickups;
   }
 
+  public getElevators() {
+    return this.elevators;
+  }
+
   public addPickup(pickup: ElevatorPickup) {
     this.elevatorPickups.push(pickup);
   }
