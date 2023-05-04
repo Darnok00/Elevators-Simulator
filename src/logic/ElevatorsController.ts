@@ -2,15 +2,34 @@ import Elevator from "./Elevator";
 import { ElevatorPickup, ElevatorExpectedTime } from "../types/types";
 
 class ElevatorsController {
+  private readonly numberElevators: number;
+  private readonly numberFloors: number;
+  private readonly timestep: number;
   private elevators: Array<Elevator>;
   private elevatorPickups: Array<ElevatorPickup>;
-  constructor(numberElevators: number) {
+
+  constructor(numberElevators: number, numberFloors: number, timestep: number) {
     // index == id
+    this.numberElevators = numberElevators;
+    this.numberFloors = numberFloors;
+    this.timestep = timestep;
     this.elevators = Array.from(
       { length: numberElevators },
       (_, id) => new Elevator(id)
     );
     this.elevatorPickups = [];
+  }
+
+  public getNumberElevators() {
+    return this.numberElevators;
+  }
+
+  public getNumberFloors() {
+    return this.numberFloors;
+  }
+
+  public getTimestep() {
+    return this.timestep;
   }
 
   public addPickup(pickup: ElevatorPickup) {
