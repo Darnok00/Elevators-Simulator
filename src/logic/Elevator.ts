@@ -138,11 +138,14 @@ class Elevator {
           1;
       });
     }
-    totalTime +=
+    
+    if (this.elevatorRidesQueue.length > 0){
+      totalTime +=
       getDiffrenceFloors(
         this.elevatorRidesQueue[this.elevatorRidesQueue.length - 1].destinationFloor,
         startFloor
       ) + getDiffrenceFloors(startFloor, destinationFloor);
+    }
 
     return totalTime;
   }
