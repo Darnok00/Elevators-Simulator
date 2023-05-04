@@ -63,6 +63,7 @@ class ElevatorsController {
         pickup.destinationFloor
       );
     });
+    this.elevatorPickups = [];
   }
 
   public getElevatorsStatus() {

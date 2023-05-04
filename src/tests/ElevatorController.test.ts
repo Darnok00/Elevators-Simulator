@@ -1,5 +1,4 @@
 import ElevatorsController from "../logic/ElevatorsController";
-import { ElevatorPickup } from "../types/types";
 
 describe("Elevator Controller tests", () => {
   test("Add Pickup", () => {
