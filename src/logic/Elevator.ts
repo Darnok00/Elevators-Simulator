@@ -250,6 +250,7 @@ class Elevator {
       ride.stops.forEach((stop) => {
         nextStops.push(stop);
       });
+      nextStops.push(ride.destinationFloor);
     });
 
     if (nextStops.length > 0) {
