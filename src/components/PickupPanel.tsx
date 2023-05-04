@@ -14,7 +14,7 @@ const InitializePopup: React.FC<Props> = ({
   const {
     register,
     handleSubmit,
-    formState: {  },
+    formState: { errors },
   } = useForm<ElevatorPickup>();
 
   return (
@@ -22,7 +22,7 @@ const InitializePopup: React.FC<Props> = ({
       <div className="PickupContainer">
         <form onSubmit={handleSubmit(elevatorPickup)}>
           <label>
-            <p>Start floor</p>
+            <p>Start floor ({floorsNumberScope[0]} - {floorsNumberScope[1]}) </p>
             <input
               className="elemenetPickup"
               type="number"
@@ -35,7 +35,7 @@ const InitializePopup: React.FC<Props> = ({
           </label>
           <br />
           <label>
-            <p>Destination floor</p>
+            <p>Destination floor ({floorsNumberScope[0]} - {floorsNumberScope[1]}) </p>
             <input
               className="elemenetPickup"
               type="number"

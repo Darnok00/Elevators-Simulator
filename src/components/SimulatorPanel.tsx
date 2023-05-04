@@ -5,7 +5,7 @@ import ElevatorsController from "../logic/ElevatorsController";
 type ElevatorTableProps = {
   controller: ElevatorsController;
 };
-
+let numberSteps: number = 0;
 const StatusPanel: React.FC<ElevatorTableProps> = ({ controller }) => {
   const [elevatorsStatus, setElevatorsStatus] = useState<
     Array<{
@@ -16,14 +16,13 @@ const StatusPanel: React.FC<ElevatorTableProps> = ({ controller }) => {
   >(controller.getElevatorsStatus());
   const [controllerElevators, setControllerElevators] =
     useState<ElevatorsController>(controller);
-  const [numberSteps, setNumberSteps] = useState<number>(0);
-
   useEffect(() => {
 
     const intervalId = setInterval(() => {
-      setElevatorsStatus([...controllerElevators.getElevatorsStatus()]);
+      setElevatorsStatus(controllerElevators.getElevatorsStatus());
       setControllerElevators(controllerElevators.updateElevators());
-      setNumberSteps(numberSteps+1);
+      numberSteps += 1
+      console.log(numberSteps)
     }, controllerElevators.getTimestep() * 1000);
 
     return () => {
@@ -34,7 +33,7 @@ const StatusPanel: React.FC<ElevatorTableProps> = ({ controller }) => {
   return (
     <div className="SimulatorContianer">
       <p className="steps"
-      > Number steps: {numberSteps}</p>
+      > Number steps: {numberSteps} Timestep: {controller.getTimestep()}</p>
       <table>
         <thead>
           <tr>
