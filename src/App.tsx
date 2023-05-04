@@ -1,5 +1,5 @@
 import "./styles/App.css";
-import InitializePopup from "./components/InitializePopup";
+import InitializeWindow from "./components/InitializeWindow";
 import PickupPanel from "./components/PickupPanel";
 import { SimulatorConstants, ElevatorPickup } from "./utils/types";
 import { useState } from "react";
@@ -28,14 +28,13 @@ function App() {
   const handleSubmitElevatorPickup = (data: ElevatorPickup) => {
     //@ts-ignore
     setElevatorsController(elevatorsController.addPickup(data));
-    console.log("bla");
   };
 
   return (
     <>
       <div>
         {!isStarted && (
-          <InitializePopup
+          <InitializeWindow
             simulatorConstants={handleSubmitSimulatorConstants}
           />
         )}
