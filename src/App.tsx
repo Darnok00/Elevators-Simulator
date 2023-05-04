@@ -1,6 +1,6 @@
 import "./styles/App.css";
 import InitializePopup from "./components/InitializePopup";
-import { SimulatorConstants } from "./types/types";
+import { SimulatorConstants } from "./utils/types";
 import { useState } from "react";
 
 const defaultValues = { floorsNumber: 5, elevatorsNumber: 2, timestep: 1 };

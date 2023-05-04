@@ -1,10 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SimulatorConstants } from "../types/types";
-
-const floorsNumberScope: Array<number> = [5, 31];
-const elevatorsNumberScope: Array<number> = [1, 16];
-const timestepScope: Array<number> = [1, 10];
+import { SimulatorConstants } from "../utils/types";
+import {floorsNumberScope, elevatorsNumberScope, timestepScope } from "../utils/constants"
 
 type Props = {
   simulatorConstants: (data: SimulatorConstants) => void;

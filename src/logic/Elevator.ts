@@ -1,4 +1,4 @@
-import { ElevatorRide } from "../types/types";
+import { ElevatorRide } from "../utils/types";
 import { getDirection, getDiffrenceFloors, canBeAdditionalStop, numberStopsForScope, insertNewStop} from "./helpers";
 
 class Elevator {

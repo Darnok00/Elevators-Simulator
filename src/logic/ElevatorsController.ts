@@ -1,5 +1,5 @@
 import Elevator from "./Elevator";
-import { ElevatorPickup, ElevatorExpectedTime } from "../types/types";
+import { ElevatorPickup, ElevatorExpectedTime } from "../utils/types";
 
 class ElevatorsController {
   private readonly numberElevators: number;
