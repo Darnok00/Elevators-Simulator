@@ -1,14 +1,12 @@
-//@ts-ignore
 import React from "react";
-//@ts-ignore
 import { useForm } from "react-hook-form";
 import { ElevatorPickup } from "../utils/types";
 
 type Props = {
+  floorsNumberScope: Array<number>,
   elevatorPickup: (data: ElevatorPickup) => void;
 };
 
-//@ts-ignore
 const InitializePopup: React.FC<Props> = ({ floorsNumberScope, elevatorPickup}) => {
   const {
     register,
