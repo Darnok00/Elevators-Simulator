@@ -8,14 +8,16 @@ class Elevator {
   private elevatorRidesQueue: Array<ElevatorRide>;
   private canMove: boolean;
   private id: number;
+  private numberFloors: number;
 
-  constructor(id: number) {
+  constructor(id: number, numberFloors: number) {
     this.actualFloor = 0;
     this.destinationFloor = 0;
     this.stops = [];
     this.elevatorRidesQueue = [];
     this.canMove = true;
     this.id = id;
+    this.numberFloors = numberFloors;
   }
 
   public getActualFloor() {
@@ -46,7 +48,19 @@ class Elevator {
     return this.elevatorRidesQueue.length > 0;
   }
 
+  public isIllegalFloor(floor: number) {
+    //we're counting from 0
+    return floor >= this.numberFloors || floor < 0;
+  }
+
   public getExpectedTimeArrival(startFloor: number, destinationFloor: number) {
+    if (this.isIllegalFloor(startFloor)  ) {
+      throw new Error ("Illegal start  floor!" );
+    }
+    if (this.isIllegalFloor(destinationFloor)  ) {
+      throw new Error ("Illegal destination  floor!" );
+    }
+
     let totalTime = 0;
 
     if (!this.isGoing && !this.hasPlannedRide) {
@@ -151,6 +165,13 @@ class Elevator {
   }
 
   public addRide(startFloor: number, destinationFloor: number) {
+    if (this.isIllegalFloor(startFloor)  ) {
+      throw new Error ("Illegal start  floor!" );
+    }
+    if (this.isIllegalFloor(destinationFloor)  ) {
+      throw new Error ("Illegal destination  floor!" );
+    }
+    
     const directionActualRide = getDirection(
       this.actualFloor,
       this.destinationFloor

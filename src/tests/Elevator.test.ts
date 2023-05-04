@@ -2,7 +2,7 @@ import Elevator from "../logic/Elevator";
 
 describe("Elevator tests", () => {
   test("Add First Ride", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1,20);
     elevator.addRide(3, 8);
     const result = elevator.getElevatorRidesQueue();
     expect(result).toEqual([
@@ -20,7 +20,7 @@ describe("Elevator tests", () => {
   });
 
   test("Add Ride that should be added to  ride (in queue) stops", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 8);
     elevator.addRide(5, 7);
     const result = elevator.getElevatorRidesQueue();
@@ -39,7 +39,7 @@ describe("Elevator tests", () => {
   });
 
   test("Start ride", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 8);
     elevator.addRide(5, 7);
     elevator.startRide();
@@ -50,7 +50,7 @@ describe("Elevator tests", () => {
   });
 
   test("Add Ride that should be added to actual stops", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 8);
     elevator.startRide();
     elevator.addRide(1, 2);
@@ -59,7 +59,7 @@ describe("Elevator tests", () => {
   });
 
   test("Is Going", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 8);
     elevator.startRide();
     const result = elevator.isGoing();
@@ -67,7 +67,7 @@ describe("Elevator tests", () => {
   });
 
   test("Has Planned Ride", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 8);
     elevator.startRide();
     const result = elevator.hasPlannedRide();
@@ -75,7 +75,7 @@ describe("Elevator tests", () => {
   });
 
   test("Move without stop break", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 8);
     elevator.startRide();
     elevator.move();
@@ -84,7 +84,7 @@ describe("Elevator tests", () => {
   });
 
   test("Move with stop break", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 5);
     elevator.addRide(1, 2);
     elevator.startRide();
@@ -95,7 +95,7 @@ describe("Elevator tests", () => {
   });
 
   test("List next stops (without upcoming step)", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 30);
     elevator.addRide(3, 5);
     elevator.addRide(1, 2);
     elevator.startRide();
@@ -104,7 +104,7 @@ describe("Elevator tests", () => {
   });
 
   test("Expected Time Arrival", () => {
-    const elevator = new Elevator(1);
+    const elevator = new Elevator(1, 20);
     elevator.addRide(3, 5);
     elevator.addRide(7, 2);
     elevator.startRide();

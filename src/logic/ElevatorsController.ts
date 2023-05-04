@@ -15,7 +15,7 @@ class ElevatorsController {
     this.timestep = timestep;
     this.elevators = Array.from(
       { length: numberElevators },
-      (_, id) => new Elevator(id)
+      (_, id) => new Elevator(id, numberFloors)
     );
     this.elevatorPickups = [];
   }
