@@ -35,7 +35,7 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
         </label>
         <br />
         <label>
-          <p>Number of elevators( 1 - 16)</p>
+          <p>Number of elevators(1 - 16)</p>
           <input
             className="elementInitialize"
             type="number"

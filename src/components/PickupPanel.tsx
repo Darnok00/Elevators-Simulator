@@ -14,7 +14,7 @@ const InitializePopup: React.FC<Props> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {  },
   } = useForm<ElevatorPickup>();
 
   return (
@@ -51,8 +51,6 @@ const InitializePopup: React.FC<Props> = ({
             Pickup elevator
           </button>
         </form>
-        {/* * <label>NUMBER ELEVATOR: {numberElevator}</label>
-      <label>NUMBER Expected Time: {expectedTime}</label>  */}
       </div>
     </>
   );
