@@ -1,4 +1,3 @@
-import { NumericKeys } from "react-hook-form/dist/types/path/common";
 import { ElevatorRide } from "../utils/types";
 import { getDirection, getDiffrenceFloors, canBeAdditionalStop, numberStopsForScope, insertNewStop} from "./helpers";
 
