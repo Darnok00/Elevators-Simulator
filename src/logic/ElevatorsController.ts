@@ -42,6 +42,7 @@ class ElevatorsController {
 
   public addPickup(pickup: ElevatorPickup) {
     this.elevatorPickups.push(pickup);
+    return this
   }
 
   private assignPickupsToElevators() {
@@ -88,12 +89,15 @@ class ElevatorsController {
     this.elevators.forEach((elevator) => {
       if (elevator.isGoing()) {
         elevator.move()
+        elevator.setPreviousFloor();
       } else {
         if (elevator.hasPlannedRide()) {
+          elevator.setPreviousFloor();
           elevator.startRide();
         }
       }
     })
+    return this;
   }
 	
 }
