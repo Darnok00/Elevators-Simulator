@@ -22,7 +22,7 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
     <div className="InitializeContainer">
       <form onSubmit={handleSubmit(simulatorConstants)}>
         <label>
-        <p>Number of floors:</p>
+        <p>Number of floors (5 - 31):</p>
           <input
             className = "element"
             type="number"
@@ -32,11 +32,10 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
               max: floorsNumberScope[1],
             })}
           />
-          {errors.floorsNumber && <p>Invalid number of floors.</p>}
         </label>
         <br/>
         <label>
-          <p>Number of elevators:</p>
+          <p>Number of elevators( 1 - 16):</p>
           <input
             className = "element"
             type="number"
@@ -46,11 +45,10 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
               max: elevatorsNumberScope[1],
             })}
           />
-          {errors.elevatorsNumber && <p>Invalid number of elevators.</p>}
         </label>
         <br/>
         <label>
-        <p>Timestep:</p>
+        <p>Timestep (1 - 10):</p>
           <input
             className = "element"
             type="number"
@@ -60,7 +58,6 @@ const InitializeWindow: React.FC<Props> = ({ simulatorConstants }) => {
               max: timestepScope[1],
             })}
           />
-          {errors.timestep && <p>Invalid timestep.</p>}
         </label>
         <br/>
         <button className="element" type="submit">Start Simulation</button>
